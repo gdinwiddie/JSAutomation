@@ -1,35 +1,28 @@
 var seleniumWebdriver = require('selenium-webdriver');
 const {By, Key, until} = require('selenium-webdriver');
 var {defineSupportCode} = require('cucumber');
+const HomePage = require('../page_objects/home_page');
 const RegistrationPage = require('../page_objects/registration_page');
-
 
 defineSupportCode(function ({Given, When, Then, setDefaultTimeout}) {
     setDefaultTimeout(60 * 1000);
 
+    var page;
 
     Given(/^I am on the front page$/, function () {
-        var getURL = this.driver.get('http://demoqa.com/');
-        var checkPageTitle = this.driver.getTitle().then(function (title) {
-            console.log('Page title is: ' + title);
-            //check title text and compare
-        });
-
+        page = new HomePage(this.driver);
+        page.open();
+        page.verifyTitle();
     });
 
     When(/^I enter my registration details$/, function () {
-        var registrationButton = this.driver.findElement(By.className('menu-item-374')).click()
-
-        var enterFirstName = this.driver.findElement(By.id('name_3_firstname'))
-        enterFirstName.click()
-        enterFirstName.clear()
-        var text123 = enterFirstName.sendKeys('First' + Math.random().toString(36).substr(2, 5))
+        page.register();
+        page = new RegistrationPage(this.driver);
+        page.verifyURL();
 
         //randomised first and last names to avoid duplications
-        var enterLastName = this.driver.findElement(By.id('name_3_lastname'))
-        enterLastName.click()
-        enterLastName.clear()
-        enterLastName.sendKeys('Last' + Math.random().toString(36).substr(2, 5))
+        page.enterFirstName('First' + Math.random().toString(36).substr(2, 5));
+        page.enterLastName('Last' + Math.random().toString(36).substr(2, 5))
 
         //selecting Single as martial ststus
         //todo: create tests for selecting another one/ or randomise
