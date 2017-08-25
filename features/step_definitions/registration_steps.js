@@ -1,6 +1,7 @@
 var seleniumWebdriver = require('selenium-webdriver');
 const {By, Key, until} = require('selenium-webdriver');
 var {defineSupportCode} = require('cucumber');
+const RegistrationPage = require('../page_objects/registration_page');
 
 
 defineSupportCode(function ({Given, When, Then, setDefaultTimeout}) {
