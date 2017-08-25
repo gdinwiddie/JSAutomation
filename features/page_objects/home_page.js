@@ -1,24 +1,16 @@
 const {By, Key, until} = require('selenium-webdriver');
 const expect = require('chai').expect;
+const Page = require('./page');
 
-class HomePage {
+class HomePage extends Page {
     constructor(driver) {
-        this.driver = driver;
-    }
-
-    open() {
-        this.driver.get('http://demoqa.com/');
+        super(driver);
+        this.URL = 'http://demoqa.com/';
+        this.page_title = "Demoqa | Just another WordPress site";
     }
 
     register() {
         this.driver.findElement(By.className('menu-item-374')).click()
-    }
-
-    verifyTitle() {
-        this.driver.getTitle().then(function (title) {
-            console.log('Page title is: ' + title);
-            expect(title).to.equal("Demoqa | Just another WordPress site");
-        });
     }
 };
 

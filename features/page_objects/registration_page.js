@@ -1,16 +1,12 @@
 const {By, Key, until} = require('selenium-webdriver');
 const expect = require('chai').expect;
+const Page = require('./page');
 
-class RegistrationPage {
-  constructor(driver) {
-    this.driver = driver;
-  }
-
-  verifyURL() {
-     this.driver.getCurrentUrl().then(function(url) {
-        expect(url).to.equal("http://demoqa.com/registration/");
-     });
-  }
+class RegistrationPage extends Page {
+    constructor(driver) {
+        super(driver);
+        this.URL = "http://demoqa.com/registration/";
+    }
 
   enterFirstName(name) {
     var enterFirstName = this.driver.findElement(By.id('name_3_firstname'))
