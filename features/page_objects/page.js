@@ -15,7 +15,7 @@ class Page {
     verifyURL() {
         var expectedURL = this.URL;
         this.driver.getCurrentUrl().then(function(url) {
-        expect(url).to.equal(expectedURL);
+            expect(url).to.equal(expectedURL);
         });
     }
 
